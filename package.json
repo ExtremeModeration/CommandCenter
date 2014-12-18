@@ -14,5 +14,13 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ExtremeModeration/CommandCenter/issues"
+  },
+  "window": {
+    "toolbar": false,
+    "width": 710,
+    "height": 580
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10"
   }
 }
