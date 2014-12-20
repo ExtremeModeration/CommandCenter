@@ -6,6 +6,7 @@ var gulp = require('gulp'),
 
 var config = {
     sassPath: './resources/sass',
+    jsPath: './resources/js',
     bowerDir: './bower_components'
 };
 
@@ -42,7 +43,8 @@ gulp.task('css', function() {
 gulp.task('js', function() {
     return gulp.src([
             config.bowerDir + '/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-            config.bowerDir + '/jquery/dist/jquery.min.*'
+            config.bowerDir + '/jquery/dist/jquery.min.*',
+            config.jsPath + '/*.js'
         ])
         .pipe(gulp.dest('./public/js'));
 });
