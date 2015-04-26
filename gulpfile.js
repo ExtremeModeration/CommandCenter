@@ -1,58 +1,100 @@
 var gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),
-    autoprefix = require('gulp-autoprefixer'),
-    notify = require('gulp-notify'),
-    bower = require('gulp-bower');
+    bootstrap = require('bootstrap-styl'),
+    browserify = require('browserify'),
+    buffer = require('vinyl-buffer'),
+    concat = require('gulp-concat'),
+    react = require('gulp-react'),
+    source = require('vinyl-source-stream'),
+    streamify = require('gulp-streamify'),
+    stylus = require('gulp-stylus'),
+    uglify = require('gulp-uglify'),
+    watch = require('gulp-watch');
 
 var config = {
-    sassPath: './resources/sass',
-    jsPath: './resources/js',
-    bowerDir: './bower_components'
+    bootstrap: {
+        dist: function(uri) {
+            return 'node_modules/bootstrap/dist' + uri;
+        }
+    },
+    jquery: {
+        dist: function(uri) {
+            return 'node_modules/jquery/dist' + uri;
+        }
+    },
+    flux: {
+
+    },
+    react: {
+        dist: function(uri) {
+            return 'node_modules/react/dist' + uri;
+        }
+    },
+    react_bootstrap: {
+        dist: function (uri) {
+            return 'node_modules/react-bootstrap/dist' + uri;
+        }
+    }
 };
 
-gulp.task('bower', function() {
-    return bower()
-        .pipe(gulp.dest(config.bowerDir));
+gulp.task('jsx', function(){
+    return gulp.src('src/jsx/**/*.jsx')
+        .pipe(react())
+        .pipe(uglify({
+            mangle: false
+        }))
+        .pipe(gulp.dest('build'));
 });
 
-gulp.task('icons', function() {
-    return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')
-        .pipe(gulp.dest('./public/fonts'));
+gulp.task('js', function(){
+    gulp.src([
+        'src/js/**/*.js'
+    ])
+        .pipe(gulp.dest('build'));
 });
 
-gulp.task('css', function() {
-    return gulp.src(config.sassPath + '/style.scss')
-        .pipe(
-            sass({
-                style: 'compressed',
-                "sourcemap=none": true,
-                loadPath: [
-                    './resources/sass',
-                    config.bowerDir + '/bootstrap-sass-official/assets/stylesheets',
-                    config.bowerDir + '/fontawesome/scss',
-                ]
-             })
-            .on('error', notify.onError(function(error) {
-                return 'Error: ' + error.message;
-            }))
-        )
-        .pipe(autoprefix('last 2 version'))
-        .pipe(gulp.dest('./public/css'));
+gulp.task('stylus', function(){
+    gulp.src('src/styl/**/*.styl')
+        .pipe(stylus({
+            use:[bootstrap()]
+        }))
+        .pipe(gulp.dest('public/stylesheets'));
 });
 
-gulp.task('js', function() {
-    return gulp.src([
-            config.bowerDir + '/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-            config.bowerDir + '/jquery/dist/jquery.min.*',
-            config.jsPath + '/*.js'
-        ])
-        .pipe(gulp.dest('./public/js'));
+gulp.task('bootstrap', function(){
+    gulp.src(config.bootstrap.dist('/fonts/*'))
+        .pipe(gulp.dest('public/fonts'));
+
+    gulp.src([
+        config.bootstrap.dist('/js/bootstrap.min.js'),
+        config.jquery.dist('/jquery.min.js')
+    ])
+        .pipe(gulp.dest('public/javascripts'));
 });
 
-// rerun the task when a file changes
-gulp.task('watch', function() {
-    gulp.watch(config.sassPath + '/**/*.scss', ['css']);
+gulp.task('react', function(){
+    gulp.src(config.react.dist('/react-with-addons.min.js'))
+        .pipe(gulp.dest('public/javascripts'));
 });
 
-gulp.task('default', ['bower', 'icons', 'css', 'js']);
+gulp.task('react-bootstrap', ['react', 'bootstrap'], function(){
+    gulp.src(config.react_bootstrap.dist('/react-bootstrap.min.js'))
+        .pipe(gulp.dest('public/javascripts'));
+});
 
+gulp.task('bundle', function(){
+    browserify({
+        entries: ['./build/app.js']
+    })
+        .bundle()
+        .pipe(source('app.min.js'))
+        .pipe(streamify(uglify('app.min.js')))
+        .pipe(gulp.dest('public/javascripts'));
+});
+
+gulp.task('watch', ['stylus','react-bootstrap','js', 'jsx', 'bundle'], function(){
+    gulp.watch(['src/styl/**/*.styl'], ['stylus']);
+    gulp.watch(['src/js/**/*.js'], ['js']);
+    gulp.watch(['src/jsx/**/*.jsx'], ['jsx']);
+
+    gulp.watch(['./build/*.js'], ['bundle']);
+});
