@@ -1,9 +1,9 @@
-/node_modules/
-/bower_components/
-/.sass-cache/
-*.log
-/**/*.*~
-/public/
-/.idea/
+node_modules/
+bower_components/
+dist/
+.idea/
+.env
 *.iml
-.sublime-gulp.cache
+*.ipr
+*.iws
+*.log
