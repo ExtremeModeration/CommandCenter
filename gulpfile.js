@@ -101,6 +101,11 @@ gulp.task('bower', function() {
         .pipe(gulp.dest('dist/bower_components'));
 });
 
+gulp.task('start', function(){
+  gulp.src('.')
+    .pipe($.runElectron([], {cwd: '.'}));
+});
+
 gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
     gulp.watch('src/*.html', ['html']);
 

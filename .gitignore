@@ -2,6 +2,8 @@ node_modules/
 bower_components/
 dist/
 .idea/
+release/
+cache/
 .env
 *.iml
 *.ipr

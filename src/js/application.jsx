@@ -16,6 +16,17 @@ var Row = ReactBootstrap.Row;
 var TabbedArea = ReactBootstrap.TabbedArea;
 var TabPane = ReactBootstrap.TabPane;
 
+var ChatStore = window.ChatStore = require('./stores/ChatStore');
+var ChatActions = require('./actions/ChatActions');
+
+irc.client.addListener('message' + irc.opts.channels[0], function(nick, text, message){
+  ChatActions.createMessage(nick, text, message);
+});
+
+irc.client.addListener('action', function(from, to, text, message){
+  ChatActions.createAction(from, to, text, message);
+});
+
 var Application = React.createClass({
   getInitialState: function() {
     return {
@@ -127,27 +138,21 @@ var Viewer = React.createClass({
 var ChatPanel = React.createClass({
   getInitialState: function() {
     return {
-      messages: [],
+      messages: ChatStore.getAll(),
       inputValue: ""
     }
   },
 
   componentDidMount: function() {
-    var _this = this;
+    ChatStore.addChangeListener(this._onChange);
+  },
 
-    function appendMessage(nick, text, type, message) {
-      var messages = _this.state.messages;
-      messages.push({nick: nick, text: text, type: type, data: message});
-      _this.setState({messages: messages});
-    }
+  componentWillUnmount: function() {
+    ChatStore.removeChangeListener(this._onChange);
+  },
 
-    irc.client.addListener('message' + irc.opts.channels[0], function(nick, text, message){
-      appendMessage(nick, text, 'message', message);
-    });
-
-    irc.client.addListener('action', function(from, to, text, message){
-      appendMessage(from, text, 'action', message);
-    });
+  _onChange: function() {
+    this.setState({messages: ChatStore.getAll()});
   },
 
   handleChange: function(e) {
@@ -160,9 +165,10 @@ var ChatPanel = React.createClass({
       var messages = this.state.messages;
       var nick = irc.opts.userName
       var message = {nick: nick, type: 'message', text: messageInput.getValue()};
-      messages.push(message);
+      // messages.push(message);
+      // this.setState({messages: messages});
+      ChatActions.createMessage(nick, message.text, null)
       irc.client.say(irc.opts.channels[0], message.text);
-      this.setState({messages: messages});
       this.setState({inputValue: ""});
     }
   },

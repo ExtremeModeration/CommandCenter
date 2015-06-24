@@ -4,10 +4,21 @@
   "description": "ExtremeModeration.tv Command Center",
   "main": "main.js",
   "scripts": {
+    "start": "gulp build && electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Steve Good",
   "license": "ISC",
+  "dependencies": {
+    "dotenv": "^1.2.0",
+    "flux": "^2.0.3",
+    "irc": "^0.3.12",
+    "keymirror": "^0.1.1",
+    "lodash": "^3.9.3",
+    "moment": "^2.10.3",
+    "object-assign": "^3.0.0",
+    "react-bootstrap": "^0.23.4"
+  },
   "devDependencies": {
     "bootstrap-styl": "^4.0.4",
     "bower": "^1.4.1",
@@ -22,6 +33,7 @@
     "gulp-concat": "^2.5.2",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-react": "^3.0.1",
+    "gulp-run-electron": "^1.2.0",
     "gulp-size": "^1.2.2",
     "gulp-strip-debug": "^1.0.2",
     "gulp-stylus": "^2.0.5",
@@ -34,13 +46,6 @@
     "strip-debug": "^1.1.1",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.2"
-  },
-  "dependencies": {
-    "dotenv": "^1.2.0",
-    "irc": "^0.3.12",
-    "lodash": "^3.9.3",
-    "moment": "^2.10.3",
-    "react-bootstrap": "^0.23.4"
   },
   "browserify": {
     "transform": [
