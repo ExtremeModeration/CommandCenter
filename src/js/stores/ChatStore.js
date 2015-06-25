@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var ChatConstants = require('../constants/ChatConstants');
+var CommandCenterConstants = require('../constants/CommandCenterConstants');
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
@@ -44,11 +44,11 @@ AppDispatcher.register(function(action){
   var nick, text, type, message;
 
   switch(action.actionType) {
-    case ChatConstants.SEND_MESSAGE:
-    case ChatConstants.RECEIVE_MESSAGE:
+    case CommandCenterConstants.SEND_MESSAGE:
+    case CommandCenterConstants.RECEIVE_MESSAGE:
       type = 'message';
       break;
-    case ChatConstants.RECEIVE_ACTION:
+    case CommandCenterConstants.RECEIVE_ACTION:
       type = 'action';
       break;
   }

@@ -1,11 +1,17 @@
+var irc = currentWindow.irc;
+
 var AppDispatcher = require('../dispatchers/AppDispatcher');
-var ChatConstants = require('../constants/ChatConstants');
+var CommandCenterConstants = require('../constants/CommandCenterConstants');
 
 var ChatActions = {
+  sendMessage: function(message) {
+    irc.client.say(irc.opts.channels[0], message.trim());
+    ChatActions.createMessage(irc.opts.userName, message.trim(), null);
+  },
+
   createMessage: function(nick, text, message) {
-    console.log("Message args: ", arguments);
     AppDispatcher.dispatch({
-      actionType: ChatConstants.RECEIVE_MESSAGE,
+      actionType: CommandCenterConstants.RECEIVE_MESSAGE,
       nick: nick,
       text: text,
       message: message
@@ -13,9 +19,8 @@ var ChatActions = {
   },
 
   createAction: function(from, to, text, message) {
-    console.log("Action args: ", arguments);
     AppDispatcher.dispatch({
-      actionType: ChatConstants.RECEIVE_ACTION,
+      actionType: CommandCenterConstants.RECEIVE_ACTION,
       nick: from,
       text: text,
       message: message

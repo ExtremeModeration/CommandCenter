@@ -12,7 +12,7 @@ var bootstrap = require('bootstrap-styl');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream'),
-    sourceFile = './src/js/application.jsx',
+    sourceFile = './src/js/application.js',
     destFolder = './dist/scripts',
     destFileName = 'application.js';
 
