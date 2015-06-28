@@ -115,7 +115,7 @@ gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
 // Build
 gulp.task('build', ['html', 'buildBundle', 'fonts'], function() {
     gulp.src('dist/scripts/application.js')
-        .pipe($.uglify())
+        //.pipe($.uglify())
         .pipe($.stripDebug())
         .pipe(gulp.dest('dist/scripts'));
 });

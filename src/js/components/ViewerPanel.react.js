@@ -14,7 +14,7 @@ var ViewerPanel = React.createClass({
     });
 
     return (
-      <ListGroup>
+      <ListGroup className="viewerList">
         {viewers}
       </ListGroup>
     );

@@ -19,7 +19,7 @@ app.on('ready', function(){
   mainWindow.loadUrl('file://' + __dirname + '/dist/index.html');
 
   // Open the devtools.
-  // mainWindow.openDevTools();
+  //mainWindow.openDevTools();
 
   // Connect to IRC
   connectIrc(mainWindow);
@@ -44,6 +44,11 @@ function connectIrc(_window) {
   };
 
   var client = new irc.Client('irc.twitch.tv',opts.userName,opts);
+
+  client.addListener('registered', function(message){
+    console.log(message);
+    client.send('CAP', 'REQ', 'twitch.tv/membership');
+  });
 
   client.addListener('raw', function(message){
     console.log('raw: ', message);

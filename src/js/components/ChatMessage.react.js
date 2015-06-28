@@ -10,7 +10,7 @@ var ChatMessage = React.createClass({
     }
     return (
       <li className={_classes.join(' ')}>
-        <small className="timestamp">{moment().format('HH:mm')}</small>
+        <small className="timestamp">{this.props.message._at.format('HH:mm')}</small>
         <span className="nick">{this.props.message.nick}:</span>
         {this.props.message.text}
       </li>

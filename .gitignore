@@ -4,8 +4,10 @@ dist/
 .idea/
 release/
 cache/
+build/
 .env
 *.iml
 *.ipr
 *.iws
 *.log
+*.asar

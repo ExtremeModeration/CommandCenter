@@ -70,7 +70,7 @@ var ChatPanel = React.createClass({
             onKeyUp={this.sendChatMessage} value={this.state.inputValue} />
         </div>
       </div>
-    )
+    );
   }
 });
 

@@ -1,3 +1,6 @@
+window.moment = require('moment');
+window._ = require('lodash');
+
 // init the IRC listeners
 require('./listeners/IRC').start();
 

@@ -14,7 +14,8 @@ function create(nick, text, type, message) {
     nick: nick,
     text: text,
     type: type,
-    message: message
+    message: message,
+    _at: moment()
   };
   console.log("_message:", _message);
   _messages.push(_message);

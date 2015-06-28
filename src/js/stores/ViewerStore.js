@@ -1,5 +1,3 @@
-var _ = require('lodash');
-
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var CommandCenterConstants = require('../constants/CommandCenterConstants');

@@ -5,5 +5,8 @@ module.exports = keyMirror({
   RECEIVE_MESSAGE: null,
   RECEIVE_ACTION: null,
   VIEWER_JOINED: null,
-  VIEWER_PARTED: null
+  VIEWER_PARTED: null,
+  CREATE_COMMAND: null,
+  UPDATE_COMMAND: null,
+  REMOVE_COMMAND: null
 });
