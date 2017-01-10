@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Command Center</title>
+    <style>
+    html, body { margin: 0; padding: 0; background-color: #e3e3e3;}
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const {ipcRenderer} = require('electron')
+      const script = document.createElement('script')
+      const srcPath = process.env.ENV === 'development' ? 'http://localhost:9000' : '.'
+      script.src = srcPath + '/dist/bundle.js'
+      document.head.appendChild(script)
+    </script>
+  </body>
+</html>

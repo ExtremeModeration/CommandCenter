@@ -1,13 +1,3 @@
 node_modules/
-bower_components/
 dist/
-.idea/
-release/
-cache/
-build/
-.env
-*.iml
-*.ipr
-*.iws
 *.log
-*.asar

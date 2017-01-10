@@ -1,69 +1,64 @@
 {
-  "name": "cc",
+  "name": "CommandCenter",
   "version": "1.0.0",
-  "description": "ExtremeModeration.tv Command Center",
-  "main": "main.js",
+  "description": "A Twitch dashboard for the desktop",
+  "main": "index.js",
   "scripts": {
-    "start": "gulp build && electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ENV=development electron .",
+    "dev": "concurrently -k 'babel-node server.js' 'npm start'",
+    "build": "webpack --config webpack.config.production.js && electron-packager . HackerNews --platform=darwin --arch=all --prune --overwrite --icon ./stringer_icon"
   },
+  "repository": "https://github.com/ExtremeModeration/CommandCenter",
+  "keywords": [
+    "Electron",
+    "Twitch"
+  ],
   "author": "Steve Good",
   "license": "ISC",
-  "dependencies": {
-    "dotenv": "^1.2.0",
-    "flux": "^2.0.3",
-    "irc": "^0.3.12",
-    "keymirror": "^0.1.1",
-    "lodash": "^3.9.3",
-    "moment": "^2.10.3",
-    "object-assign": "^3.0.0",
-    "react-bootstrap": "^0.23.4"
-  },
   "devDependencies": {
-    "bootstrap-styl": "^4.0.4",
-    "bower": "^1.4.1",
-    "browserify": "^10.2.4",
-    "browserify-shim": "^3.8.9",
-    "del": "^1.2.0",
-    "electron-prebuilt": "^0.28.2",
-    "gulp": "^3.9.0",
-    "gulp-asar": "0.0.2",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-bower": "0.0.10",
-    "gulp-cache": "^0.2.10",
-    "gulp-clean": "^0.3.1",
-    "gulp-concat": "^2.5.2",
-    "gulp-load-plugins": "^1.0.0-rc.1",
-    "gulp-react": "^3.0.1",
-    "gulp-run-electron": "^1.2.0",
-    "gulp-size": "^1.2.2",
-    "gulp-strip-debug": "^1.0.2",
-    "gulp-stylus": "^2.0.5",
-    "gulp-uglify": "^1.2.0",
-    "gulp-useref": "^1.2.0",
-    "gulp-util": "^3.0.5",
-    "react": "^0.13.3",
-    "react-tools": "^0.13.3",
-    "reactify": "^1.1.1",
-    "strip-debug": "^1.1.1",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.2.2"
+    "babel-loader": "^6.2.9",
+    "babel-polyfill": "^6.16.0",
+    "concurrently": "^3.1.0",
+    "css-loader": "^0.26.1",
+    "debounce": "^1.0.0",
+    "electron-packager": "^8.3.0",
+    "express": "^4.14.0",
+    "file-loader": "^0.9.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.2.0",
+    "redux-logger": "^2.7.4",
+    "redux-saga": "^0.13.0",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.4.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-hot-middleware": "^2.13.2",
+    "webpack-node-externals": "^1.5.4",
+    "webpack-target-electron-renderer": "^0.4.0"
   },
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ]
-    ]
-  },
-  "browser": {
-    "jquery": "./bower_components/jquery/dist/jquery.js"
-  },
-  "browserify-shim": {
-    "jquery": "$"
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "classnames": "^2.2.5",
+    "electron-prebuilt": "^1.4.10",
+    "flexboxgrid": "^6.3.1",
+    "material-ui": "^0.16.4",
+    "react-flexbox-grid": "^0.10.2",
+    "react-redux": "^5.0.1",
+    "react-router": "^3.0.0",
+    "react-router-redux": "^4.0.7",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux-promise": "^0.5.3",
+    "redux-react-router": "^1.0.0-beta3",
+    "redux-thunk": "^2.1.0",
+    "tmi.js": "^1.1.2",
+    "yamljs": "^0.2.8"
   }
 }
