@@ -1,7 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
 var webpackTargetElectronRenderer = require('webpack-target-electron-renderer')
-var nodeExternals = require('webpack-node-externals')
 
 var config = {
   entry: [
@@ -23,6 +22,9 @@ var config = {
         include: /flexboxgrid/
       }, {
         test: /\.png|\.svg$/,
+        loader: 'file'
+      }, {
+        test: /\.json|\.md$/,
         loader: 'file'
       }
     ]

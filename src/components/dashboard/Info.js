@@ -15,11 +15,16 @@ const Playing = (props) => (
   props.online ? <p><strong>Playing:</strong> {props.playing}</p> : null
 )
 
+const Viewers = (props) => (
+  props.online ? <p><strong>Viewers:</strong> {props.viewers}</p> : null
+)
+
 const Info = (props) => (
   <Widget title="Stream Info" subtitle={status(props.online)}>
     <WidgetText>
       <Title {...props} />
       <Playing {...props} />
+      <Viewers {...props} />
     </WidgetText>
   </Widget>
 )

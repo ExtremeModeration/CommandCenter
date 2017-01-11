@@ -1,18 +1,23 @@
 import React from 'react'
 import { Card, CardHeader } from 'material-ui'
 
-import style from './Widget.styl'
+const defaultStyle = {
+  height: 250,
+  marginBottom: 15,
+  overflow: 'hidden'
+}
 
-const Widget = (props) => (
-  <div className={style.widget}>
-    <Card>
+const Widget = (props) => {
+  const style = Object.assign({}, defaultStyle, props.style)
+  return (
+    <Card style={style}>
       <CardHeader
         title={props.title}
         subtitle={props.subtitle}
         showExpandableButton={false} />
-      {props.children}
+        {props.children}
     </Card>
-  </div>
-)
+  )
+}
 
 export default Widget

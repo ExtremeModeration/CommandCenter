@@ -5,12 +5,8 @@ import Widget from './Widget'
 const Viewers = (props) => {
   const { viewers } = props
   return (
-    <Widget title={`${viewers.length} viewers`}>
-      <List>
-        {viewers.map((viewer, key) => (
-          <ListItem key={key} primaryText={viewer.displayName} />
-        ))}
-      </List>
+    <Widget title={`${viewers} viewers`}>
+      <p>Viewer list should go here...</p>
     </Widget>
   )
 }
