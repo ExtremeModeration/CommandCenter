@@ -14,8 +14,7 @@ const Title = (props) => {
 
 const Followers = (props) => {
   const { followers } = props
-  const sorted = _.sortBy(followers, (o) => o.display_name)
-  const userListItems = sorted.map((user, key) => (
+  const userListItems = followers.map((user, key) => (
     <UserListItem {...user} key={key} />
   ))
 

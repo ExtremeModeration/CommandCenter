@@ -1,9 +1,11 @@
 import { combineEpics } from 'redux-observable'
 
-import followersEpic from './followers'
+import followsEpic from './follows'
 import streamEpic from './stream'
+import viewersEpic from './viewers'
 
 export const rootEpic = combineEpics(
-  followersEpic,
-  streamEpic
+  followsEpic,
+  streamEpic,
+  viewersEpic
 )

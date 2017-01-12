@@ -3,13 +3,15 @@ import { routerReducer as routing } from 'react-router-redux'
 
 import chat from './chat'
 import drawer from './drawer'
-import followers from './followers'
+import follows from './follows'
 import stream from './stream'
+import viewers from './viewers'
 
 export default combineReducers({
   chat,
   drawer,
-  followers,
+  follows,
   stream,
+  viewers,
   routing
 });

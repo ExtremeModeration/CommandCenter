@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Col, Row } from 'react-flexbox-grid'
 import { fetchStream } from 'reducers/stream'
-import { fetchFollowers } from 'reducers/followers'
+import { fetchFollows } from 'reducers/follows'
+import { fetchViewers } from 'reducers/viewers'
 
 import ChatWidget from './ChatWidget'
 import Followers from './Followers'
@@ -11,26 +12,56 @@ import Viewers from './Viewers'
 
 class Dashboard extends Component {
   componentWillMount() {
-    const channel = 'ExtremeModeration'
     // todo: get this from some settings state...
-    this.fetchStream(channel)
-    setTimeout(() => this.fetchFollowers(channel), 1000)
+    const channel = 'ExtremeModeration'
+    const channel_id = 76866729
+
+    this.fetchStream(channel_id)
+
+    setTimeout(() => (
+      this.fetchFollows(channel_id)
+    ), 1000)
+
+    setTimeout(() => (
+      this.fetchViewers(channel)
+    ), 500)
+  }
+
+  componentWillUnmount() {
+    [
+      this.streamInterval,
+      this.followersInterval,
+      this.viewersInterval
+    ].map(interval =>(
+      clearInterval(interval)
+    ))
   }
 
   fetchStream = (channel) => {
     this.props.fetchStream(channel)
     // is this really the right place to do this?
     // get the stream info every minute
-    setTimeout(() => this.fetchStream(channel), 60000)
+    this.streamInterval = setTimeout(() => (
+      this.fetchStream(channel)
+    ), 60000)
   }
 
-  fetchFollowers = (channel) => {
-    this.props.fetchFollowers(channel)
-    setTimeout(() => this.fetchFollowers(channel), 60000)
+  fetchFollows = (channel) => {
+    this.props.fetchFollows(channel)
+    this.followersInterval = setTimeout(() => (
+      this.fetchFollows(channel)
+    ), 60000)
+  }
+
+  fetchViewers = (channel) => {
+    this.props.fetchViewers(channel)
+    this.viewersInterval = setTimeout(() => (
+      this.fetchViewers(channel)
+    ), 10000)
   }
 
   render() {
-    const { followers, stream } = this.props
+    const { followers, stream, viewerUsernames } = this.props
     const { game, viewers, channel, online } = stream
     const { status } = channel
 
@@ -69,9 +100,10 @@ class Dashboard extends Component {
 }
 
 export default connect(
-  ({stream, followers}) => ({
+  ({stream, follows, viewers}) => ({
     stream,
-    followers: followers.users
+    followers: follows.users,
+    viewerUsernames: viewers.usernames
   }),
-  { fetchStream, fetchFollowers }
+  { fetchStream, fetchFollows, fetchViewers }
 )(Dashboard)
