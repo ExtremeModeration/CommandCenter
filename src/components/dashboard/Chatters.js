@@ -24,7 +24,7 @@ const Chatters = (props) => {
   )
 
   return (
-    <Widget title={`${count} chatters`}>
+    <Widget title={`${count} Chatters`}>
       <WidgetBody>
         <List>
           {_.sortBy(names, o => o).map((name, key) => (
