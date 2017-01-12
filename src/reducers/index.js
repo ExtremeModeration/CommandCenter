@@ -5,13 +5,13 @@ import chat from './chat'
 import drawer from './drawer'
 import follows from './follows'
 import stream from './stream'
-import viewers from './viewers'
+import chatters from './chatters'
 
 export default combineReducers({
   chat,
   drawer,
   follows,
   stream,
-  viewers,
+  chatters,
   routing
 });

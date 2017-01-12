@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { Col, Row } from 'react-flexbox-grid'
 import { fetchStream } from 'reducers/stream'
 import { fetchFollows } from 'reducers/follows'
-import { fetchViewers } from 'reducers/viewers'
+import { fetchChatters } from 'reducers/chatters'
 
 import ChatWidget from './ChatWidget'
 import Followers from './Followers'
 import Info from './Info'
-import Viewers from './Viewers'
+import Chatters from './Chatters'
 
 class Dashboard extends Component {
   componentWillMount() {
@@ -23,7 +23,7 @@ class Dashboard extends Component {
     ), 1000)
 
     setTimeout(() => (
-      this.fetchViewers(channel)
+      this.fetchChatters(channel)
     ), 500)
   }
 
@@ -53,15 +53,15 @@ class Dashboard extends Component {
     ), 60000)
   }
 
-  fetchViewers = (channel) => {
-    this.props.fetchViewers(channel)
+  fetchChatters = (channel) => {
+    this.props.fetchChatters(channel)
     this.viewersInterval = setTimeout(() => (
-      this.fetchViewers(channel)
+      this.fetchChatters(channel)
     ), 10000)
   }
 
   render() {
-    const { followers, stream, viewerUsernames } = this.props
+    const { followers, stream, chatters } = this.props
     const { game, viewers, channel, online } = stream
     const { status } = channel
 
@@ -84,9 +84,9 @@ class Dashboard extends Component {
                 <Followers followers={followers} />
               </Col>
 
-              {/* <Col xs={6}>
-                <Viewers viewers={viewers} />
-              </Col> */}
+              <Col xs={6}>
+                <Chatters {...chatters} />
+              </Col>
             </Row>
           </Col>
 
@@ -100,10 +100,10 @@ class Dashboard extends Component {
 }
 
 export default connect(
-  ({stream, follows, viewers}) => ({
+  ({stream, follows, chatters}) => ({
     stream,
-    followers: follows.users,
-    viewerUsernames: viewers.usernames
+    chatters,
+    followers: follows.users
   }),
-  { fetchStream, fetchFollows, fetchViewers }
+  { fetchStream, fetchFollows, fetchChatters }
 )(Dashboard)

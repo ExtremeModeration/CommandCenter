@@ -6,17 +6,10 @@ const URL = (uri) => (
   `${root}${uri}`
 )
 
-const chatters = (channel, options) => (
-  get(URL(`/group/user/${channel.toLowerCase()}/chatters`), options)
-)
-
-const viewers = (channel, options) => (
-  chatters(channel, options).flatMap(({chatters}) => (
-    Rx.Observable.from(chatters.viewers)
-  ))
+const chatters = (channel) => (
+  get(URL(`/group/user/${channel.toLowerCase()}/chatters`))
 )
 
 export default {
-  chatters,
-  viewers
+  chatters
 }

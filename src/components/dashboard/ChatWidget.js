@@ -4,7 +4,7 @@ import Widget from './Widget'
 
 const style = {
   widget: {
-    height: 415
+    height: 515
   }
 }
 
