@@ -10,8 +10,14 @@ const epicMiddleware = createEpicMiddleware(rootEpic)
 
 const initialize = (initialState = {}) => {
   const store = process.env.ENV === 'development' ?
-    createStore(reducer, initialState, applyMiddleware(epicMiddleware, createLogger())) :
-    createStore(reducer, initialState, applyMiddleware(epicMiddleware))
+    createStore(
+      reducer,
+      initialState,
+      applyMiddleware(epicMiddleware, createLogger())) :
+    createStore(
+      reducer,
+      initialState,
+      applyMiddleware(epicMiddleware))
 
   if (module.hot) {
     module.hot.accept('../reducers', () => {
